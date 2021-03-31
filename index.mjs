@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
-import createLogger from 'redux-logger'
+import logger from 'redux-logger'
 // 创建reducer
 const reducer = (state = 0, action) => {
     switch(action.type) {
@@ -8,12 +8,12 @@ const reducer = (state = 0, action) => {
     }
     return state
 }
-const logger = createLogger()
+const Logger = logger.createLogger()
 /**
  * 创建store
  * createStore 第二个参数优先级高于reducer里面的默认state
  */
-const store = createStore(reducer, 2, applyMiddleware(logger))
+const store = createStore(reducer, applyMiddleware(Logger))
 const actionAddCreator = (num) => ({type: "add", num})
 const actionSubCreator = (num) => ({type: "sub", num})
 
