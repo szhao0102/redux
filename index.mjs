@@ -1,4 +1,5 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import createLogger from 'redux-logger'
 // 创建reducer
 const reducer = (state = 0, action) => {
     switch(action.type) {
@@ -7,10 +8,16 @@ const reducer = (state = 0, action) => {
     }
     return state
 }
-// 创建store
-const store = createStore(reducer,2)
+const logger = createLogger()
+/**
+ * 创建store
+ * createStore 第二个参数优先级高于reducer里面的默认state
+ */
+const store = createStore(reducer, 2, applyMiddleware(logger))
 const actionAddCreator = (num) => ({type: "add", num})
 const actionSubCreator = (num) => ({type: "sub", num})
+
+
 let unsub = store.subscribe(()=>{
     console.log(store.getState())
 })
