@@ -1,7 +1,17 @@
 {
   "dependencies": {
-    "babel": "^6.23.0",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.14",
+    "@babel/plugin-transform-react-jsx-compat": "^7.12.13",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.3",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6"
+  },
+  "scripts": {
+    "build": "babel src -d dist"
   }
 }
