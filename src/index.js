@@ -19,15 +19,15 @@ class Counter extends Component {
 }
 const Action = () => {
     return dispatch => {
-        setTimeout(() => {
-            dispatch({type: "add", count:2})
-        },1000)
+        axios.get('./dist/test.json')
+        .then((res) => {console.log(res);return dispatch({type: "add",count: 1})})
+        .catch((err) => {console.log(err);return dispatch({type: "add", count: 2})})
     }
 }
 const Reducer = (state = { count: 0}, action) => {
     switch(action.type) {
 
-        case 'add': return {count: action.count + 1};break;
+        case 'add': return {count: state.count + action.count};break;
         default: return state
     }
 }
