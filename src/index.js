@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import ReactDOM from 'react-dom'
 import { Provider, connect } from 'react-redux'
-
+import axios from 'axios'
+import thunk from 'redux-thunk'
 class Counter extends Component {
     render() {
         const {value, onInc} = this.props
@@ -16,17 +17,22 @@ class Counter extends Component {
         )
     }
 }
-
-const Action = {type: "add"}
-
+const Action = () => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch({type: "add", count:2})
+        },1000)
+    }
+}
 const Reducer = (state = { count: 0}, action) => {
     switch(action.type) {
-        case 'add': return {count: state.count + 1};break;
+
+        case 'add': return {count: action.count + 1};break;
         default: return state
     }
 }
 
-const store = createStore(Reducer)
+const store = createStore(Reducer, applyMiddleware(thunk))
 
 const mapStateToProps = (state) => {
     return {
@@ -36,7 +42,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onInc: () => dispatch(Action)
+        onInc: () => dispatch(Action())
     }
 }
 
